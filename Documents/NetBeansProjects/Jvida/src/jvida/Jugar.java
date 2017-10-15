@@ -13,9 +13,9 @@ public class Jugar extends JFrame implements Runnable, ActionListener {
     private JButton btnJugar;
     private JSlider slVelocidad;
     public static int numero;
-//    IngresoTablero it;
-//    public int n = it.numero;
-    public int n = 30;
+    IngresoTablero it;
+    public int n = it.numero;
+//    public int n = 30;
     JButton celdas[][] = new JButton[n][n];
     boolean celda_viva[][] = new boolean[n][n];
     boolean celda_viva_actualizada[][] = new boolean[n][n];

@@ -1,5 +1,6 @@
 package jvida;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.InputMismatchException;
@@ -20,6 +21,7 @@ public class IngresoTablero extends JFrame {
 
     public IngresoTablero() {
         this.init_component();
+        contenent.setBackground(Color.BLACK);
     }
 
     public void init_component() {

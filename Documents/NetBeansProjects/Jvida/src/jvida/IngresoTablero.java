@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.InputMismatchException;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,8 +17,10 @@ public class IngresoTablero extends JFrame {
 
     private JPanel contenent;
     private JLabel lblTamanio;
+    private JLabel lblLife;
     private JTextField txtTamanio;
     private JButton btnCancel, btnStart;
+    private Icon icoLife;
     public static int numero;
 
     public IngresoTablero() {
@@ -25,7 +29,7 @@ public class IngresoTablero extends JFrame {
     }
 
     public void init_component() {
-        setSize(320, 200);
+        setSize(320, 500);
         setLocationRelativeTo(null);
         setTitle("JUEGO DE LA VIDA");
         setResizable(false);
@@ -33,9 +37,18 @@ public class IngresoTablero extends JFrame {
 
         this.contenent = (JPanel) this.getContentPane();
         this.contenent.setLayout(null);
-        this.contenent.setSize(320, 200);
+        this.contenent.setSize(320, 500);
 
         //-------- COMPONENTES -------------- \\
+        //imagen
+        this.lblLife = new JLabel();
+        this.icoLife = new ImageIcon(getClass().getResource("/imagenes/life.jpg"));
+//        Icon icoAdministrador;
+        this.lblLife.setIcon(icoLife);
+        this.lblLife.setSize(320, 300);
+        this.lblLife.setLocation(0, 200);
+        this.contenent.add(this.lblLife);
+        
         this.lblTamanio = new JLabel("TAMAÑO DEL TABLERO");
         this.lblTamanio.setSize(150, 30);
         this.lblTamanio.setLocation(10, 30);

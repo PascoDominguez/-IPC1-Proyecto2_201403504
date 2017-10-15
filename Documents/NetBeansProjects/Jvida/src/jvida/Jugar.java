@@ -11,6 +11,7 @@ public class Jugar extends JFrame implements Runnable, ActionListener {
     private JTextField iteraciones;
     private JButton btnParar;
     private JButton btnJugar;
+    private JButton btnExit;
     private JSlider slVelocidad;
     public static int numero;
     IngresoTablero it;
@@ -50,19 +51,31 @@ int cont_iteraciones = 0;
 
         //BOTON START
         this.btnJugar = new JButton("START");
-        this.btnJugar.setBounds(80, 575, 100, 30);
+        this.btnJugar.setBounds(380, 575, 100, 40);
         this.btnJugar.addActionListener(this);
         this.panel2.add(this.btnJugar);
 
         //boton PARAR
         this.btnParar = new JButton("PAUSE");
-        this.btnParar.setBounds(200, 575, 100, 30);
+        this.btnParar.setBounds(500, 575, 100, 40);
         this.btnParar.addActionListener(this);
         this.panel2.add(this.btnParar);
+        
+        //boton salir
+        this.btnExit = new JButton("GAME OVER");
+        this.btnExit.setBounds(610, 575, 120, 40);
+        this.btnExit.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnExit(e);
+            }
+        });
+        this.panel2.add(this.btnExit);
 
         //ITERACIONES
         this.iteraciones = new JTextField(" ");
-        iteraciones.setBounds(400, 625, 100, 30);
+        iteraciones.setBounds(40, 625, 100, 30);
         this.panel2.add(this.iteraciones);
         
         //Slider
@@ -70,7 +83,7 @@ int cont_iteraciones = 0;
         this.slVelocidad.setPaintLabels(true);
         this.slVelocidad.setMinorTickSpacing(5);
         this.slVelocidad.setMajorTickSpacing(10);
-        this.slVelocidad.setBounds(400, 575, 335, 50);
+        this.slVelocidad.setBounds(40, 575, 335, 50);
         this.slVelocidad.addMouseMotionListener(new MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt){
                 //aqui va el evento
@@ -224,4 +237,7 @@ int cont_iteraciones = 0;
                 
     }
 
+     public void btnExit(ActionEvent e){
+         System.exit(0);
+     }
 }

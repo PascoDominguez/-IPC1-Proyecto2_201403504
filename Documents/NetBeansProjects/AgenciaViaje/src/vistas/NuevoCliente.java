@@ -21,6 +21,8 @@ public class NuevoCliente extends javax.swing.JFrame {
 //        setLocationRelativeTo(null);
 //        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         initComponents();
+        this.txtPorFrecuencia.setEnabled(false);
+        this.txtPorMonto.setEnabled(false);
     }
 
    
@@ -263,7 +265,7 @@ public class NuevoCliente extends javax.swing.JFrame {
             this.agregarCliente();
             JOptionPane.showMessageDialog(null, "CLIENTE AGREGADO");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         this.limpiar();
 
@@ -275,10 +277,14 @@ public class NuevoCliente extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.limpiar();
+        this.txtPorFrecuencia.setEnabled(false);
+        this.txtPorMonto.setEnabled(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         this.buscarCliente();
+        this.txtPorFrecuencia.setEnabled(true);
+        this.txtPorMonto.setEnabled(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
 

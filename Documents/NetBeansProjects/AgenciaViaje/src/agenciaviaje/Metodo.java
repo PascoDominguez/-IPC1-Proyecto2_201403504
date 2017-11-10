@@ -232,6 +232,21 @@ public class Metodo {
         return conr_cliente;
     }
     
+    //////////////////////  reporte de reservacion
+    public static R_reservacion misR_reservacion[] = new R_reservacion[100];
+    public static int conRreser = 0;
+    
+    public R_reservacion[] getR_reservacion(){
+        return misR_reservacion;
+    }
+    public void agregarR_reservacion(R_reservacion miR_reservacion){
+        misR_reservacion[conRreser] = miR_reservacion;
+        conRreser++;
+    }
+    public int numR_reservacion(){
+        return conRreser;
+    }
+    
     
 }
 

@@ -2,6 +2,7 @@ package vistas;
 
 import agenciaviaje.Metodo;
 import agenciaviaje.r_cliente;
+import agenciaviaje.R_reservacion;
 import java.awt.Desktop;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -127,6 +128,9 @@ public class Reporte extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservacionesActionPerformed
+        this.cargarreproteReservacion();
+        this.reporteReservacion();
+        this.abrirArchivo("reservacion.html");
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReservacionesActionPerformed
 
@@ -265,10 +269,10 @@ public class Reporte extends javax.swing.JFrame {
             for (int i = 0; i < v.size(); i++) {
                 System.out.println(vec[i]);
                 for (int j = 0; j < v.size() - 1; j++) {
-                    if (vec[i] < vec[i + 1]) {
-                        int aux = vec[i];
-                        vec[i] = vec[i + 1];
-                        vec[i + 1] = aux;
+                    if (vec[j] < vec[j + 1]) {
+                        int aux = vec[j];
+                        vec[j] = vec[j + 1];
+                        vec[j + 1] = aux;
                     }
                 }
             }
@@ -287,6 +291,116 @@ public class Reporte extends javax.swing.JFrame {
                                     + "            </tr>";
                         }
                     }
+                }
+            }
+
+            cadenaHTML += "        </table>"
+                    + "    </body>"
+                    + "</html>";
+
+            br.write(cadenaHTML);
+
+            br.close();
+
+            fw.close();
+        } catch (Exception e) {
+        }
+    }
+
+    public void reporteReservacion() {
+        try {
+            String rCliente = "reservacion.html";
+            File f = new File(rCliente);
+            FileWriter fw = new FileWriter(f);
+            BufferedWriter br = new BufferedWriter(fw);
+            String cadenaHTML = "<html>"
+                    + "    <head>"
+                    + "    <body>"
+                    //Ordenado ascendentemente por codigo de cliente
+                    + "       <h1>TRAVEL S.A.</h1>"
+                    + "       <center><h3>REPORTE DE RESERVACIONES</h3></center>"
+                    + "       <center><h4>Ordenado ascendentemente por codigo de reservacion</h4></center>"
+                    + "       <center> <table border>"
+                    + "            <tr>"
+                    + "                <td>ID RESERVACION</td>"
+                    + "                <td>ID CLIENTE</td>"
+                    + "                <td>NOMBRE</td>"
+                    + "                <td>APELLIDO</td>"
+                    + "                <td>COSTO VIAJE</td>"
+                    + "                <td>MONTO RESERVACION</td>"
+                    + "                <td>ESTADO</td>"
+                    + "            </tr></center>";
+
+            for (int x = 0; x < misMetodo.numR_reservacion(); x++) {
+
+                if (x != 0) {
+                    cadenaHTML += "            <tr>"
+                            + "                <td>" + misMetodo.getR_reservacion()[x].getCodigoReser() + "</td>"
+                            + "                <td>" + misMetodo.getR_reservacion()[x].getCodigocliente() + "</td>"
+                            + "                <td>" + misMetodo.getR_reservacion()[x].getNombrecliente() + "</td>"
+                            + "                <td>" + misMetodo.getR_reservacion()[x].getApellidoCliente() + "</td>"
+                            + "                <td>" + misMetodo.getR_reservacion()[x].getCostoViaje() + "</td>"
+                            + "                <td>" + misMetodo.getR_reservacion()[x].getMontoReservacion() + "</td>"
+                            + "                <td>" + misMetodo.getR_reservacion()[x].getEstadoReservacion() + "</td>"
+                            + "            </tr>";
+                }
+            }
+
+            cadenaHTML += "        </table>"
+                    // Ordenado descendentemente por monto
+
+                    + "       <center><h4>Odenado descendente mente por monto o costo del viaje</h4></center>"
+                    + "       <center> <table border>"
+                    + "            <tr>"
+                    + "                <td>ID RESERVACION</td>"
+                    + "                <td>ID CLIENTE</td>"
+                    + "                <td>NOMBRE</td>"
+                    + "                <td>APELLIDO</td>"
+                    + "                <td>COSTO VIAJE</td>"
+                    + "                <td>MONTO RESERVACION</td>"
+                    + "                <td>ESTADO</td>"
+                    + "            </tr></center>";
+
+            int[] vec = new int[100];
+
+            Vector v = new Vector();
+            for (int x = 0; x < misMetodo.numR_reservacion(); x++) {
+                if (x != 0) {
+//                    if (misMetodo.getr_cliente()[x].getDestino() != null) {
+                    v.addElement(Integer.parseInt(misMetodo.getR_reservacion()[x].getCostoViaje()));
+//                    }
+                }
+            }
+            for (int i = 0; i < v.size(); i++) {
+                vec[i] = (int) v.elementAt(i);
+            }
+            for (int i = 0; i < v.size(); i++) {
+                for (int j = 0; j < v.size() - 1; j++) {
+                    if (vec[j] < vec[j + 1]) {
+                        int aux = vec[j];
+                        vec[j] = vec[j + 1];
+                        vec[j + 1] = aux;
+                    }
+                }
+            }
+
+            for (int i = 0; i < v.size(); i++) {
+                System.out.print(vec[i]);
+                System.out.println("");
+                for (int x = 0; x < misMetodo.numR_reservacion(); x++) {
+//                    if (misMetodo.getr_cliente()[x].getDestino() != null) {
+                    if (String.valueOf(vec[i]).equals(misMetodo.getR_reservacion()[x].getCostoViaje())) {
+                        cadenaHTML += "            <tr>"
+                                + "                <td>" + misMetodo.getR_reservacion()[x].getCodigoReser() + "</td>"
+                                + "                <td>" + misMetodo.getR_reservacion()[x].getCodigocliente() + "</td>"
+                                + "                <td>" + misMetodo.getR_reservacion()[x].getNombrecliente() + "</td>"
+                                + "                <td>" + misMetodo.getR_reservacion()[x].getApellidoCliente() + "</td>"
+                                + "                <td>" + misMetodo.getR_reservacion()[x].getCostoViaje() + "</td>"
+                                + "                <td>" + misMetodo.getR_reservacion()[x].getMontoReservacion() + "</td>"
+                                + "                <td>" + misMetodo.getR_reservacion()[x].getEstadoReservacion() + "</td>"
+                                + "            </tr>";
+                    }
+//                    }
                 }
             }
 
@@ -387,6 +501,48 @@ public class Reporte extends javax.swing.JFrame {
             }
         }
 
+    }
+
+    public void cargarreproteReservacion() {
+        for (int x = 0; x < misMetodo.numeroReservacion(); x++) {
+            String codigoReser = misMetodo.getReservacion()[x].getCodigoReservacion();
+            String codigocliente = misMetodo.getReservacion()[x].getCodigoCliente();
+            String nombrecliente = null;
+            String apellidoCliente = null;
+            String CostoViaje = null;
+            String montoReservacion = null;
+            String estadoReservacion = misMetodo.getReservacion()[x].getEstadoReservacion();
+            String idPaquete = misMetodo.getReservacion()[x].getCodigoPaquete();
+
+            if (x != 0) {
+                for (int i = 0; i < misMetodo.numeroCliente(); i++) {
+                    if (misMetodo.getClientes()[i].getCodigoUnico().equals(codigocliente)) {
+                        nombrecliente = misMetodo.getClientes()[i].getNombres();
+                        apellidoCliente = misMetodo.getClientes()[i].getApellidos();
+                    }
+                }
+                for (int i = 0; i < misMetodo.numeroAsiento(); i++) {
+                    if (misMetodo.getAsiento()[i].getCodigoReservacion().equals(codigoReser)) {
+                        CostoViaje = misMetodo.getAsiento()[i].getCosotPasaje();
+                    }
+                }
+                for (int i = 0; i < misMetodo.numeroCamarots(); i++) {
+                    if (misMetodo.getCamarots()[i].getCodigoReservacion().equals(codigoReser)) {
+                        CostoViaje = misMetodo.getCamarots()[i].getCostoPasaje();
+                    }
+                }
+                for (int i = 0; i < misMetodo.numeroPaquetes(); i++) {
+                    if (misMetodo.getPaquetes()[i].getCodigoPaquete().equals(idPaquete)) {
+                        montoReservacion = misMetodo.getPaquetes()[i].getCostoTotalPasaje();
+                    }
+                }
+            }
+            R_reservacion miR_reservacion = new R_reservacion(
+                    codigoReser, codigocliente, nombrecliente, apellidoCliente,
+                    CostoViaje, montoReservacion, estadoReservacion
+            );
+            misMetodo.agregarR_reservacion(miR_reservacion);
+        }
     }
 
 }
